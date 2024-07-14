@@ -53,16 +53,24 @@
 #include <unordered_set>
 #endif
 using namespace std;
-void subsets(string s,string result,int i,vector<string> &v)
+int c=0;
+int maxrodcutting(vector<int> prices,int n,vector<int> dp)
 {
-	 if(i==s.length())
-	 {
-	 	  v.push_back(result);
-	 	 cout<<result<<endl;
-	 	 return;
-	 }
-	 subsets(s,result+s[i],i+1,v);
-	 subsets(s,result,i+1,v);
+	 c++;
+	  if(n==0)
+	  {
+	  	   return 0;
+	  }
+	  if(dp[n-1]!=-1)
+	  {
+	  	  return dp[n-1];
+	  }
+	  int ans=0;
+	  for(int i=0;i<n;i++)
+	  {
+           ans=max(ans,prices[i]+maxrodcutting(prices,n-i-1,dp));
+	  }
+	  return dp[n-1]=ans;
 }
 int main()
 {
@@ -70,9 +78,17 @@ int main()
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
    #endif
-	string s;
-	cin>>s;
-	vector<string> v;
-   subsets(s,"",0,v);
-   cout<<v.size();
+
+	int n;
+	cin>>n;
+	vector<int> prices;
+	for(int i=0;i<n;i++)
+	{
+		   int x;
+		   cin>>x;
+		   prices.push_back(x);
+	}
+	vector<int> dp(n,-1);
+	cout<<maxrodcutting(prices,n,dp)<<endl;
+	cout<<c;
 }

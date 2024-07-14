@@ -53,26 +53,46 @@
 #include <unordered_set>
 #endif
 using namespace std;
-void subsets(string s,string result,int i,vector<string> &v)
-{
-	 if(i==s.length())
-	 {
-	 	  v.push_back(result);
-	 	 cout<<result<<endl;
-	 	 return;
-	 }
-	 subsets(s,result+s[i],i+1,v);
-	 subsets(s,result,i+1,v);
-}
 int main()
 {
 	#ifndef ONLINNE_JUDGE
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
    #endif
-	string s;
-	cin>>s;
-	vector<string> v;
-   subsets(s,"",0,v);
-   cout<<v.size();
+    int t;
+    cin>>t;
+    while(t--){
+          int n;
+          cin>>n;
+          map<int,int> m;
+          vector<int> v;
+          int c=0,k;
+          for(int i=0;i<n;i++)
+          {
+               int x;
+               cin>>x;
+               v.push_back(x);
+               m[x]++;
+               if(m[x]>1)
+               {
+                    c++;
+                    k=x;
+               }
+          }
+          if(c==v.size()){
+          	    cout<<"NO"<<endl;
+          }
+          else
+          {
+          	   bool flag=true;
+          	   for(int i=0;i<n;i++)
+          	   {
+          	   	    if(k!=v[i] && (v[i]%k)==0)
+          	   	    {
+          	   	    	 flag=false;
+          	   	     }   
+
+          	             }
+     }
+}
 }

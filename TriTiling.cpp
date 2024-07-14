@@ -53,16 +53,21 @@
 #include <unordered_set>
 #endif
 using namespace std;
-void subsets(string s,string result,int i,vector<string> &v)
+int nooftiles(int n)
 {
-	 if(i==s.length())
-	 {
-	 	  v.push_back(result);
-	 	 cout<<result<<endl;
-	 	 return;
-	 }
-	 subsets(s,result+s[i],i+1,v);
-	 subsets(s,result,i+1,v);
+	  if (n % 2 != 0) {
+        return 0; // If n is odd, it's impossible to fill the grid completely
+    }
+    
+    vector<int> dp(n + 1, 0);
+    dp[0] = 1; // Base case
+    dp[2] = 3; // Another base case
+
+    for (int i = 4; i <= n; i += 2) {
+        dp[i] = dp[i-2] * 4 - dp[i-4]; // Derived from the recurrence relation
+    }
+    
+    return dp[n];
 }
 int main()
 {
@@ -70,9 +75,8 @@ int main()
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
    #endif
-	string s;
-	cin>>s;
-	vector<string> v;
-   subsets(s,"",0,v);
-   cout<<v.size();
+
+	int n;
+	cin>>n;
+   cout<<nooftiles(n);
 }

@@ -30,7 +30,6 @@
 #include <utility>
 #include <valarray>
 #include <vector>
-
 #if __cplusplus >= 201103L
 #include <array>
 #include <atomic>
@@ -53,26 +52,13 @@
 #include <unordered_set>
 #endif
 using namespace std;
-void subsets(string s,string result,int i,vector<string> &v)
-{
-	 if(i==s.length())
-	 {
-	 	  v.push_back(result);
-	 	 cout<<result<<endl;
-	 	 return;
-	 }
-	 subsets(s,result+s[i],i+1,v);
-	 subsets(s,result,i+1,v);
-}
 int main()
 {
 	#ifndef ONLINNE_JUDGE
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
    #endif
-	string s;
-	cin>>s;
-	vector<string> v;
-   subsets(s,"",0,v);
-   cout<<v.size();
+
+	int sudoko[9][9];
+
 }

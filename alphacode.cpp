@@ -53,16 +53,56 @@
 #include <unordered_set>
 #endif
 using namespace std;
-void subsets(string s,string result,int i,vector<string> &v)
+int c=0;
+vector<int> dp(5,-1);
+char numtoalpha(char num)
 {
-	 if(i==s.length())
-	 {
-	 	  v.push_back(result);
-	 	 cout<<result<<endl;
-	 	 return;
-	 }
-	 subsets(s,result+s[i],i+1,v);
-	 subsets(s,result,i+1,v);
+	  return 'a'+(num-'1');
+}
+int noofoutcomes(string s,int i,int n)
+{
+	  c++;
+	  int ans=0;
+	  
+      if(i==n)
+      {
+      	   return 1;
+      }
+      
+      if(dp[i]!=-1)
+      {
+      	  return dp[i];
+      }
+      ans+=noofoutcomes(s,i+1,n);
+
+      if(i<n-1 && s[i]=='1')
+      {
+      	   ans+=noofoutcomes(s,i+2,n);
+      }
+
+      if(i<n-1 && s[i]=='2' && (s[i]>='0' && s[i]<='6'))
+      {
+      	   ans+=noofoutcomes(s,i+2,n);
+      }
+
+       return dp[i]=ans;
+     
+}
+void outcomes(string s,int i,int n,string str)
+{
+	  if(i==n)
+	  {
+	  	  cout<<str<<endl;
+	  	  str.clear();
+	  	  return;
+	  }
+	  outcomes(s,i+1,n,str+numtoalpha(s[i]));
+	   if (i < n - 1) {
+        int num = (s[i] - '0') * 10 + (s[i + 1] - '0');
+        if (num >= 10 && num <= 26) {
+            outcomes(s, i + 2, n, str + (char)('a' + num - 1));
+        }
+    }
 }
 int main()
 {
@@ -70,9 +110,11 @@ int main()
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
    #endif
-	string s;
-	cin>>s;
-	vector<string> v;
-   subsets(s,"",0,v);
-   cout<<v.size();
+   string s;
+   cin>>s;
+   string str;
+   int n=s.length();
+   outcomes(s,0,n,str);
+   cout<<noofoutcomes(s,0,n)<<endl;
+   cout<<c;
 }

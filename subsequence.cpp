@@ -53,16 +53,16 @@
 #include <unordered_set>
 #endif
 using namespace std;
-void subsets(string s,string result,int i,vector<string> &v)
+void subsequence(string s,int i,int n,string s1)
 {
-	 if(i==s.length())
-	 {
-	 	  v.push_back(result);
-	 	 cout<<result<<endl;
-	 	 return;
-	 }
-	 subsets(s,result+s[i],i+1,v);
-	 subsets(s,result,i+1,v);
+          if(i==n)
+          {
+          	    cout<<s1<<endl;
+          	    s1.clear();
+          	    return;
+          }
+          subsequence(s,i+1,n,s1+s[i]);
+          subsequence(s,i+1,n,s1);
 }
 int main()
 {
@@ -70,9 +70,8 @@ int main()
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
    #endif
-	string s;
-	cin>>s;
-	vector<string> v;
-   subsets(s,"",0,v);
-   cout<<v.size();
+     string s,s1;
+     cin>>s;
+     subsequence(s,0,s.length(),s1);
+    
 }

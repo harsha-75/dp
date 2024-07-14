@@ -53,16 +53,15 @@
 #include <unordered_set>
 #endif
 using namespace std;
-void subsets(string s,string result,int i,vector<string> &v)
+//minmum steps to get 1
+//
+int dp(int n)
 {
-	 if(i==s.length())
-	 {
-	 	  v.push_back(result);
-	 	 cout<<result<<endl;
-	 	 return;
-	 }
-	 subsets(s,result+s[i],i+1,v);
-	 subsets(s,result,i+1,v);
+	  int ans=INT_MAX;
+	  if(n%2)
+	  {
+	  	  ans=min(ans,n/2);
+	  }
 }
 int main()
 {
@@ -70,9 +69,8 @@ int main()
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
    #endif
-	string s;
-	cin>>s;
-	vector<string> v;
-   subsets(s,"",0,v);
-   cout<<v.size();
+
+   int n;
+   cin>>n;
+
 }

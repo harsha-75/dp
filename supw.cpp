@@ -53,16 +53,22 @@
 #include <unordered_set>
 #endif
 using namespace std;
-void subsets(string s,string result,int i,vector<string> &v)
+void mini(vector<int> v,int i,int n,vector<int> &s)
 {
-	 if(i==s.length())
-	 {
-	 	  v.push_back(result);
-	 	 cout<<result<<endl;
-	 	 return;
-	 }
-	 subsets(s,result+s[i],i+1,v);
-	 subsets(s,result,i+1,v);
+	  if(i==n)
+	  {
+	  	   return;
+	  }
+	  if(i<3)
+	  {
+	  	   s.push_back(v[i]);
+	  	   mini(v,i+1,n,s);
+	  }
+	  if(i>=3)
+	  {
+	  	   s.push_back(min(s[i-1],min(s[i-2],s[i-3]))+v[i]);
+	  	   mini(v,i+1,n,s);
+	  }
 }
 int main()
 {
@@ -70,9 +76,24 @@ int main()
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
    #endif
-	string s;
-	cin>>s;
-	vector<string> v;
-   subsets(s,"",0,v);
-   cout<<v.size();
+   
+   vector<int> v;
+   int n;
+
+   cin>>n;
+
+   for(int i=0;i<n;i++)
+   {
+   	   int x;
+   	   cin>>x;
+   	   v.push_back(x);
+   }
+
+    vector<int> s;
+      mini(v,0,n,s);
+    for(int i=0;i<n;i++)
+    {
+    	cout<<s[i]<<" ";
+    }
+
 }

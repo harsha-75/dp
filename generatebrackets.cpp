@@ -30,7 +30,6 @@
 #include <utility>
 #include <valarray>
 #include <vector>
-
 #if __cplusplus >= 201103L
 #include <array>
 #include <atomic>
@@ -53,16 +52,22 @@
 #include <unordered_set>
 #endif
 using namespace std;
-void subsets(string s,string result,int i,vector<string> &v)
+void generatebrackets(int n,int close,int open,string s,int i)
 {
-	 if(i==s.length())
-	 {
-	 	  v.push_back(result);
-	 	 cout<<result<<endl;
-	 	 return;
-	 }
-	 subsets(s,result+s[i],i+1,v);
-	 subsets(s,result,i+1,v);
+            if(i==2*n)
+            {
+            	  cout<<s<<endl;
+            	  s.clear();
+            	  return;
+            }
+            if(open<n)
+            {
+            	 generatebrackets(n,close,open+1,s+'(',i+1);
+            }
+            if(close<open)
+            {
+            	   generatebrackets(n,close+1,open,s+')',i+1);
+            }
 }
 int main()
 {
@@ -70,9 +75,9 @@ int main()
 	freopen("input.txt","r",stdin);
 	freopen("output.txt","w",stdout);
    #endif
-	string s;
-	cin>>s;
-	vector<string> v;
-   subsets(s,"",0,v);
-   cout<<v.size();
+    int n;
+    cin>>n;
+     string s;
+    generatebrackets(n,0,0,s,0);
+
 }
